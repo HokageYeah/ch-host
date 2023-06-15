@@ -25,7 +25,7 @@ export const isX64 = () => {
 };
 
 /**
- *
+ * 
  * 限制命令只能输入 "test", "staging", "prod", "old-bak", "dev"
  */
 const validHosts = ["test", "staging", "prod", "old-bak", "dev"];
