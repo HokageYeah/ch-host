@@ -1,4 +1,9 @@
-# 项目汇总：(hostChange 搭建项目)
+# 项目汇总：(hc-host)
+
+# 使用命令
+* hc-host list 列出本地下载的所有host文件
+* hc-host install test 下载test host文件
+* hc-host use test  应用的test host类型
 
 ## 一、命令使用说明
 

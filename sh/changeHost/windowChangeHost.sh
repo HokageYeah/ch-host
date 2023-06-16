@@ -18,17 +18,9 @@ loadingLog() {
     echo "操作系统：$1  ⏰ \n切换模式：$choiceType 🚀 \n切换到$hostType 更改中.....🍖"
 }
 
-case "$hostType" in
-  test)
-    inputFile=$scriptDir/test
-    outputFile=$yyhosts
-    ;;
-  staging)
-    inputFile=$scriptDir/staging
-    outputFile=$yyhosts
-    ;;
-  *)
-esac
+inputFile=$scriptDir/hostList/$hostType
+outputFile=$yyhosts
+
 echo "文件夹下文件inputFile：$inputFile"
 echo "文件夹下文件outputFile：$outputFile"
 
@@ -37,17 +29,8 @@ switchHost() {
     content=$(cat "$inputFile")
     if [ "$1" == "Windows" ]
     then
-        if [ "$hostType" == "test" ]
-        then
-            echo $content > $outputFile   || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
-            echo "已切换为test环境 🎉🎉🎉"
-        elif [ "$hostType" == "staging" ]
-        then
-            echo $content > $outputFile || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
-            echo "已切换为staging环境 🎉🎉🎉"
-        else
-            echo "输入：$hostType 为未知的Host环境！ ❌❌❌"
-        fi
+        echo $content > $outputFile   || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
+        echo "已切换为 $hostType 环境 🎉🎉🎉"
     fi
 }
 # 抽离追加方法
@@ -61,15 +44,7 @@ contentAppend() {
 appendHost() {
     if [ "$1" == "Windows" ]
     then
-        if [ "$hostType" == "test" ]
-        then
-            contentAppend "测试环境"
-        elif [ "$hostType" == "staging" ]
-        then
-            contentAppend "staging环境"
-        else
-            echo "输入：$hostType 为未知的Host环境！ ❌❌❌"
-        fi
+        contentAppend "$hostType 环境"
     fi
 }
 

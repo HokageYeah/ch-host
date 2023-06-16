@@ -9,9 +9,9 @@ export const getHostList = () => {
   // 同步读取
   fs.readdirSync(`${filePath}`, { withFileTypes: true }).forEach((dirent) => {
     if (dirent.name == getHost) {
-      console.log(chalk.redBright("○") + ' ' + chalk.green(dirent.name));
+      console.log("*" + ' ' + chalk.green(dirent.name));
     } else {
-      console.log('  ' + chalk.green(dirent.name));
+      console.log('  ' + dirent.name);
     }
   });
 };
