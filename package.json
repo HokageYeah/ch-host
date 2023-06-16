@@ -1,6 +1,6 @@
 {
   "name": "ch-host",
-  "version": "1.0.3",
+  "version": "1.0.3-beta.1",
   "description": "改变本地host",
   "type": "module",
   "main": "index.js",
