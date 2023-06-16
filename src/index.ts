@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 注意一定要有这行代码：#!/usr/bin/env node，这行代码叫shebang或者hashbang，它会告诉操作系统在运行这个文件文件的时候，需要用node的解析器来解析。
+//  注意一定要有这行代码：#!/usr/bin/env node，这行代码叫shebang或者hashbang，它会告诉操作系统在运行这个文件文件的时候，需要用node的解析器来解析。
 import { program } from "commander";
 import { useHost } from "./core/use";
 import { installHost } from "./core/install";
