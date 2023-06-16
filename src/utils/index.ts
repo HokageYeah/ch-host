@@ -1,6 +1,11 @@
 // 文本打印输出文字颜色
 import chalk from "chalk";
-import { fileSelectPath, fileWritePath, setPathName } from "../file";
+import {
+  fileSelectPath,
+  fileWritePath,
+  reuqestUrlPath,
+  setPathName,
+} from "../file";
 import fs from "node:fs";
 /**
  *
@@ -25,7 +30,7 @@ export const isX64 = () => {
 };
 
 /**
- * 
+ *
  * 限制命令只能输入 "test", "staging", "prod", "old-bak", "dev"
  */
 const validHosts = ["test", "staging", "prod", "old-bak", "dev"];
@@ -36,21 +41,75 @@ export const isErrorHost = (hostStr: string) => {
   }
   return false;
 };
+
+/**
+ *
+ * 查看是否设置了请求host的URL，如果没有设置则其他命令都不可用
+ */
+export const isNoSetRequestUrl = (): boolean => {
+  if( readFileOperate(fileOperationType.requestUrl).length == 0) {
+    console.error(chalk.red("你未设置请求host的URL！请使用seturl 设置"));
+    return true
+  }
+  return false;
+};
+
+/**
+ *
+ * 教研链接地址是否正常
+ */
+const urlRegex = /^(http|https):\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+export function isValidUrl(url: string) {
+  if(!urlRegex.test(url)) {
+    console.error(chalk.red("请输入正确的请求URL地址！"));
+    return true
+  }
+  return false;
+}
+
+export enum fileOperationType {
+  selectHost = 1,
+  requestUrl,
+}
+
+const getFilePath = (fileOperation: fileOperationType): string => {
+  let path = "";
+  switch (fileOperation) {
+    case fileOperationType.selectHost:
+      path = fileSelectPath;
+      break;
+    case fileOperationType.requestUrl:
+      path = reuqestUrlPath;
+      break;
+    default:
+      break;
+  }
+  return path;
+};
+
 /**
  *
  * 将当前选中的host记录到selectHost文件中
  */
-export const saveSelectHost = (host: string) => {
-  const filePath = setPathName(fileSelectPath);
-  fs.writeFileSync(filePath, host);
+export const saveFileOperate = (
+  host: string,
+  fileOperation: fileOperationType
+) => {
+  try {
+    const filePath = setPathName(getFilePath(fileOperation));
+    fs.writeFileSync(filePath, host);
+  } catch (error) {
+    console.error(chalk.red("文件写入失败！", error));
+    process.exit(1); // 退出并返回一个非零退出码
+  }
 };
 
 /**
  *
  * 读取选中的host
  */
-export const readSelectHost = () => {
-  const filePath = setPathName(fileSelectPath);
+export const readFileOperate = (fileOperation: fileOperationType) => {
+  const filePath = setPathName(getFilePath(fileOperation));
   return fs.readFileSync(filePath, "utf-8");
 };
 

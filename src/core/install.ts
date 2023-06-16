@@ -8,6 +8,7 @@ import speedometer from "speedometer";
 // 写入文件
 import fs from "node:fs";
 import { setPathName, fileWritePath } from "../file";
+import { fileOperationType, readFileOperate } from "../utils";
 
 const concatBuff = (buffList: any[], buffSize: number) =>
   Buffer.concat([...buffList], buffSize);
@@ -27,9 +28,11 @@ export const installHost = (hostStr: string) => {
     },
     progress.Presets.shades_classic
   );
-  let url = `https://www.gutenberg.org/files/1342/1342-0.txt`;
+  // let url = `https://www.gutenberg.org/files/1342/1342-0.txt`;
+  let url = `${readFileOperate(fileOperationType.requestUrl)}?host=${hostStr}`
   https.get(url, (res) => {
     const buffList: any[] = [];
+    console.log(chalk.green(`下载链接${url}`));
     console.log(chalk.green(`开始下载${hostStr}文件`));
     // 获取下载的总长度
     let total = Number(res.headers["content-length"]);
@@ -54,8 +57,13 @@ export const installHost = (hostStr: string) => {
         const buff = concatBuff(buffList, total);
         const filePath = setPathName(fileWritePath + `/${hostStr}`);
         console.log(chalk.green("写入路径", filePath));
-        fs.writeFileSync(filePath, buff);
-        console.log(chalk.green("写入完成"));
+        try {
+          fs.writeFileSync(filePath, buff);
+          console.log(chalk.green("写入完成"));
+        } catch (error) {
+          console.log(chalk.green("文件写入失败！", error));
+          process.exit(1); // 退出并返回一个非零退出码
+        }
       });
   });
 };

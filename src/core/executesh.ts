@@ -1,7 +1,13 @@
 import path from "path";
 import { exec, spawnSync, spawn } from "child_process";
 import { setPathName, shMacPath, shWindowPath } from "../file";
-import { globalHostSettings, isMac, isWindows, saveSelectHost } from "../utils";
+import {
+  fileOperationType,
+  globalHostSettings,
+  isMac,
+  isWindows,
+  saveFileOperate,
+} from "../utils";
 
 export const executeShell = (host: string) => {
   const decodedShellScriptPath = setPathName(shMacPath);
@@ -24,7 +30,7 @@ export const executeShell = (host: string) => {
     console.log(`子进程退出，退出码: ${code}`);
   });
   childProcess?.on("exit", (code: number) => {
-    saveSelectHost(host);
+    saveFileOperate(host, fileOperationType.selectHost);
     if (code !== 0) {
       console.error(`执行命令时发生错误，退出码: ${code}`);
     }

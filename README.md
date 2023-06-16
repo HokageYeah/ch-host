@@ -4,6 +4,8 @@
 * hc-host list 列出本地下载的所有host文件
 * hc-host install test 下载test host文件
 * hc-host use test  应用的test host类型
+* hc-host seturl <requestUrl> 设置请求host的链接，如果没有设置则其他命令都不可用
+* hc-host geturl  获取当前已经设置的host请求的URL
 
 ## 一、命令使用说明
 
