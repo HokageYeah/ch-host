@@ -9,7 +9,8 @@ export const setPathName = (filePath?: string) => {
   return decodedShellScriptPath;
 };
 // sh脚本执行路径
-export const shPath = "../changeHost/shellChangeHost.sh";
+export const shMacPath = "../changeHost/shellChangeHost.sh";
+export const shWindowPath = "../changeHost/windowChangeHost.sh";
 // 文件写入路径
 export const fileWritePath = "../changeHost/hostList";
 // 当前选中host的文件路径

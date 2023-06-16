@@ -7,12 +7,11 @@ echo "2、 append（在本地host后追加）"
 read -p "请输入：" choiceType
 # read -p "请输入要切换的 Host 类型（test 或 staging）：" hostType
 hostType=$1
-
 # 确定当前脚本文件夹下的文件
 scriptDir=$(dirname "$0")
 # 测试写入当前文件的newtest里面
 # yyhosts=$scriptDir/newtest
-yyhosts=/etc/hosts
+yyhosts=C:/Windows/System32/drivers/etc/hosts
 
 
 loadingLog() {
@@ -21,11 +20,11 @@ loadingLog() {
 
 case "$hostType" in
   test)
-    inputFile=$scriptDir/hostList/test
+    inputFile=$scriptDir/test
     outputFile=$yyhosts
     ;;
   staging)
-    inputFile=$scriptDir/hostList/staging
+    inputFile=$scriptDir/staging
     outputFile=$yyhosts
     ;;
   *)
@@ -35,15 +34,16 @@ echo "文件夹下文件outputFile：$outputFile"
 
 # 切换host（会覆盖）
 switchHost() {
-    if [ "$1" == "Mac" ]
+    content=$(cat "$inputFile")
+    if [ "$1" == "Windows" ]
     then
         if [ "$hostType" == "test" ]
         then
-            sudo cp $inputFile $outputFile || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
+            echo $content > $outputFile   || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
             echo "已切换为test环境 🎉🎉🎉"
         elif [ "$hostType" == "staging" ]
         then
-            sudo cp $inputFile $outputFile || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
+            echo $content > $outputFile || { echo >&2 "文件切换失败！❌❌❌"; exit 1; }
             echo "已切换为staging环境 🎉🎉🎉"
         else
             echo "输入：$hostType 为未知的Host环境！ ❌❌❌"
@@ -52,15 +52,14 @@ switchHost() {
 }
 # 抽离追加方法
 contentAppend() {
-    set -e # 设置出错后自动退出
     content=$(cat "$inputFile")
     # 追加内容到输出文件
-    sudo sh -c "echo \"$content\" >> "$outputFile"" || { echo >&2 "文件写入失败！❌❌❌"; exit 1; }
+    echo $content >> $outputFile || { echo >&2 "文件写入失败！❌❌❌"; exit 1; }
     echo "$1 Host已经追加 🎉🎉🎉"
 }
 # 追加host（不会覆盖）
 appendHost() {
-    if [[ "$1" == "Mac" || "$1" == "Linux" ]]
+    if [ "$1" == "Windows" ]
     then
         if [ "$hostType" == "test" ]
         then
@@ -75,8 +74,10 @@ appendHost() {
 }
 
 loadHost() {
+    echo '44444'
     case "$choiceType" in
         switch)
+        echo '3333'
         switchHost $1
         ;;
         append)

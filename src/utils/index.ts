@@ -78,7 +78,6 @@ class HostSettingsSingleton implements HostSettings {
 
   public static getInstance(): HostSettingsSingleton {
     if (!HostSettingsSingleton.instance) {
-      console.log("HostSettingsSingleton");
       HostSettingsSingleton.instance = new HostSettingsSingleton();
     }
     return HostSettingsSingleton.instance;

@@ -6,7 +6,6 @@ import { globalHostSettings, readSelectHost } from "../utils";
 export const getHostList = () => {
   const filePath = setPathName(fileWritePath);
   const getHost = readSelectHost();
-  console.log(getHost);
   // 同步读取
   fs.readdirSync(`${filePath}`, { withFileTypes: true }).forEach((dirent) => {
     if (dirent.name == getHost) {

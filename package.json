@@ -1,5 +1,5 @@
 {
-  "name": "hostchange",
+  "name": "ch-host",
   "version": "1.0.0",
   "description": "改变本地host",
   "type": "module",
@@ -9,7 +9,7 @@
     "build": "tsup"
   },
   "bin": {
-    "mycmd": "dist/esm/index.js"
+    "ch-host": "dist/esm/index.js"
   },
   "author": "HokageYeah",
   "license": "ISC",

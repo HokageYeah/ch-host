@@ -1,21 +1,29 @@
 import path from "path";
 import { exec, spawnSync, spawn } from "child_process";
-import { setPathName, shPath } from "../file";
-import { globalHostSettings, saveSelectHost } from "../utils";
+import { setPathName, shMacPath, shWindowPath } from "../file";
+import { globalHostSettings, isMac, isWindows, saveSelectHost } from "../utils";
 
 export const executeShell = (host: string) => {
-  const decodedShellScriptPath = setPathName(shPath);
-  const childProcess = spawn("sh", [decodedShellScriptPath, host], {
-    stdio: "inherit", // 将标准输入重定向到 /dev/null
-  });
-  childProcess.on("error", (error) => {
+  const decodedShellScriptPath = setPathName(shMacPath);
+  let childProcess;
+  if (isMac()) {
+    childProcess = spawn("sh", [decodedShellScriptPath, host], {
+      stdio: "inherit", // 将标准输入重定向到 /dev/null
+    });
+  }
+  if (isWindows()) {
+    childProcess = spawn("bash", [shWindowPath, host], {
+      stdio: "inherit", // 将标准输入重定向到 /dev/null
+    });
+  }
+  childProcess?.on("error", (error) => {
     console.error(`执行命令时发生错误: ${error.message}`);
   });
 
-  childProcess.on("close", (code) => {
+  childProcess?.on("close", (code) => {
     console.log(`子进程退出，退出码: ${code}`);
   });
-  childProcess.on("exit", (code: number) => {
+  childProcess?.on("exit", (code: number) => {
     saveSelectHost(host);
     if (code !== 0) {
       console.error(`执行命令时发生错误，退出码: ${code}`);

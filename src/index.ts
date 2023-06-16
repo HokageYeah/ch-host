@@ -7,15 +7,15 @@ import { getHostList } from "./core/list";
 import { isErrorHost } from "./utils";
 
 // 切换环境变量
-program.command("use <hostName>").action((host: string) => {
+program.command("use <hostName>").description('应用的host类型，必须指明').action((host: string) => {
   isErrorHost(host) || useHost(host);
 });
 // 下载环境变量
-program.command("install  <hostName>").action((host: string) => {
+program.command("install  <hostName>").description('下载的host类型，必须指明').action((host: string) => {
   isErrorHost(host) || installHost(host);
 });
 // 查看已经下载的所有环境变了
-program.command('list').description('host lists').action(() => {
+program.command('list').description('安装的所有host').action(() => {
     getHostList()
 })
 program.parse(process.argv);
