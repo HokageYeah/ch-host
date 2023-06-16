@@ -29,7 +29,16 @@ export const installHost = (hostStr: string) => {
     progress.Presets.shades_classic
   );
   // let url = `https://www.gutenberg.org/files/1342/1342-0.txt`;
-  let url = `${readFileOperate(fileOperationType.requestUrl)}?host=${hostStr}`
+  // let url = `${readFileOperate(fileOperationType.requestUrl)}?host=${hostStr}`;
+  const jsonString = readFileOperate(fileOperationType.requestUrl);
+  let urlMap = JSON.parse(jsonString);
+  const url = urlMap[hostStr];
+  if (!url || url.length == 0) {
+    console.error(
+      chalk.red(`还未设置${hostStr}的请求地址，请使用seturl命令去设置`)
+    );
+    process.exit(1); // 设置退出码为 1
+  }
   https.get(url, (res) => {
     const buffList: any[] = [];
     console.log(chalk.green(`下载链接${url}`));

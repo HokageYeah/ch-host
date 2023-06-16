@@ -9,13 +9,19 @@ import { program } from "commander";
 import { commandFn } from "./utils/command";
 
 // 切换环境变量
-commandFn("use <hostName>", "应用的host类型，必须指明", (host: string) => {
+commandFn("use <hostName>", "应用的host类型，必须指明", (...args: any[]) => {
+  const [[host]] = args;
   isNoSetRequestUrl() || isErrorHost(host) || useHost(host);
 });
 // 下载环境变量
-commandFn("install  <hostName>", "下载的host类型，必须指明", (host: string) => {
-  isNoSetRequestUrl() || isErrorHost(host) || installHost(host);
-});
+commandFn(
+  "install  <hostName>",
+  "下载的host类型，必须指明",
+  (...args: any[]) => {
+    const [[host]] = args;
+    isNoSetRequestUrl() || isErrorHost(host) || installHost(host);
+  }
+);
 // 查看已经下载的所有环境变了
 commandFn("list", "安装的所有host", (host: string) => {
   isNoSetRequestUrl() || getHostList();
@@ -23,14 +29,17 @@ commandFn("list", "安装的所有host", (host: string) => {
 
 // 设置请求host的链接，如果没有设置则其他命令都不可用
 commandFn(
-  "seturl  <requestUrl>",
+  "seturl  <hostName>  <requestUrl>",
   "设置请求host的链接，如果没有设置则其他命令都不可用",
-  (requestUrl: string) => {
-    isValidUrl(requestUrl) || setRequestUrl(requestUrl);
+  (...args: any[]) => {
+    const [[host, requestUrl]] = args;
+    isErrorHost(host) ||
+      isValidUrl(requestUrl) ||
+      setRequestUrl(host, requestUrl);
   }
 );
 
-commandFn("geturl", "获取当前已经设置的host请求的URL", (requestUrl: string) => {
+commandFn("geturls", "获取当前已经设置的host请求的URL", (requestUrl: string) => {
   isNoSetRequestUrl() || getRequestUrl();
 });
 program.parse(process.argv);

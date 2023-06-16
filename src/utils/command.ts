@@ -20,7 +20,7 @@ export const commandFn = (
     })
     .command(command)
     .description(description)
-    .action((host?: string) => {
-      actionFn(host);
+    .action((...args: any[]) => {
+      actionFn(args);
     });
 };

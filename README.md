@@ -4,8 +4,8 @@
 * hc-host list 列出本地下载的所有host文件
 * hc-host install test 下载test host文件
 * hc-host use test  应用的test host类型
-* hc-host seturl <requestUrl> 设置请求host的链接，如果没有设置则其他命令都不可用
-* hc-host geturl  获取当前已经设置的host请求的URL
+* hc-host seturl <hostName> <requestUrl> 为每个host设置URL的接，如果没有设置则其他命令都不可用
+* hc-host geturls  获取当前已经设置的host请求的所有URL
 * hostName限制：限制命令只能输入 "test", "staging", "prod", "old-bak", "dev"
 * URL规则 如：https://www.gutenberg.org/files/1342/1342-0.txt?host=test 其中test未输入的几个hostName
 
