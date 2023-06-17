@@ -6,6 +6,13 @@ echo "1、 switch（会覆盖本地host）"
 echo "2、 append（在本地host后追加）"
 read -p "请输入：" choiceType
 # read -p "请输入要切换的 Host 类型（test 或 staging）：" hostType
+
+# 是否可用待确认
+# @echo off
+# echo 请“以管理员身份运行”!
+# attrib -R C:\WINDOWS\system32\drivers\etc\hosts 
+
+
 hostType=$1
 # 确定当前脚本文件夹下的文件
 scriptDir=$(dirname "$0")

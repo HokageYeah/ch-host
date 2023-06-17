@@ -1,11 +1,11 @@
-# 项目汇总：(hc-host)
+# 项目汇总：(ch-host)
 
 # 使用命令
-* hc-host list 列出本地下载的所有host文件
-* hc-host install test 下载test host文件
-* hc-host use test  应用的test host类型
-* hc-host seturl <hostName> <requestUrl> 为每个host设置URL的接，如果没有设置则其他命令都不可用
-* hc-host geturls  获取当前已经设置的host请求的所有URL
+* ch-host list 列出本地下载的所有host文件
+* ch-host install test 下载test host文件
+* ch-host use test  应用的test host类型
+* ch-host seturl <hostName> <requestUrl> 为每个host设置URL的接，如果没有设置则其他命令都不可用
+* ch-host geturls  获取当前已经设置的host请求的所有URL
 * hostName限制：限制命令只能输入 "test", "staging", "prod", "old-bak", "dev"
 * URL规则 如：https://www.gutenberg.org/files/1342/1342-0.txt?host=test 其中test未输入的几个hostName
 
