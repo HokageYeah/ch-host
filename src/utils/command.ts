@@ -14,7 +14,7 @@ export const commandFn = (
         err.code != "commander.helpDisplayed"
       ) {
         console.error(chalk.red(`无效的命令`));
-        console.error(chalk.red("输入 -h 或 --help 查看命令帮助信息。")); // 输出自定义的错误信息window
+        console.error(chalk.red("输入 -h 或 --help 查看命令帮助信息。")); // 输出自定义的错误信息window 111
       }
       process.exit(1); // 设置退出码为 1
     })
