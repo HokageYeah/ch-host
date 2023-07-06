@@ -1,6 +1,6 @@
 {
   "name": "ch-host",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "改变本地host",
   "type": "module",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "build": "tsup"
   },
   "bin": {
-    "ch-host": "dist/esm/index.js"
+    "chh": "dist/esm/index.js"
   },
   "author": "HokageYeah",
   "license": "ISC",
