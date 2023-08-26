@@ -1,18 +1,33 @@
 {
   "name": "ch-host",
-  "version": "1.0.5",
-  "description": "改变本地host",
+  "version": "1.0.6",
+  "description": "更改本地host文件【下载host、更改host】",
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "dev": "tsup src/index.ts",
-    "build": "tsup"
+    "build": "tsup && ts-node scripts/build.ts ",
+    "publish": "ts-node scripts/publish.ts"
   },
   "bin": {
     "chh": "dist/esm/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HokageYeah/ch-host.git"
+  },
+  "keywords": [
+    "host",
+    "host/change",
+    "host/download"
+  ],
   "author": "HokageYeah",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HokageYeah/ch-host/issues"
+  },
+  "homepage": "https://github.com/HokageYeah/ch-host#readme",
   "devDependencies": {
     "@types/cli-progress": "^3.11.0",
     "@types/copyfiles": "^2.4.1",

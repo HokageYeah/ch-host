@@ -19,6 +19,7 @@ const copyFilesPlugin = {
 export default defineConfig({
   target: "node12",
   entryPoints: ["src/index.ts"], // 根据实际情况修改入口文件路径
+  // format: ["cjs","esm"], //输出的模块格式。
   format: ["esm"],
   dts: true,
   sourcemap: true,
